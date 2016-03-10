@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var queries = require('../queries/cart-queries');
+require('dotenv').config();
+var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 router.get('/', function(req, res, next) {
 
@@ -26,6 +28,7 @@ router.get('/charge', function(req, res, next) {
 });
 
 router.post('/charge', function(req, res,next) {
+
     var stripeToken = req.body.stripeToken;
     var amount =  req.body.stripeAmount;
 
@@ -34,8 +37,10 @@ router.post('/charge', function(req, res,next) {
         currency: 'usd',
         amount: amount
     },
+    
     function(err, charge) {
         if (err) {
+          console.log(err);
             res.send('error');
         } else {
             res.send('success');
