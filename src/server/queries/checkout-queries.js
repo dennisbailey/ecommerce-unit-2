@@ -5,8 +5,7 @@ module.exports = {
 
   populateReceipt: function (userID) {
 
-    return knex('shopping_carts').where('shopping_carts.user_id', userID);
-
+    return knex.raw('SELECT * FROM shopping_carts s WHERE s.user_id = ' + userID + '');
   }
 
 

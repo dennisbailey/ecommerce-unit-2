@@ -3,8 +3,9 @@ var router = express.Router();
 var queries = require('../queries/checkout-queries');
 
 router.get('/', function(req, res, next) {
+  var userID = 1;
   
-  queries.populateReceipt(1)
+  queries.populateReceipt(userID)
   
   .then( function (result) {
     console.log(result);  
